@@ -1,0 +1,2564 @@
+@import "tailwindcss";
+
+@theme {
+    --animate-intro-reveal: intro-reveal 1s ease-out both;
+    --animate-about-zoom: about-zoom 1s ease-out both;
+    --animate-about-hero: about-hero 1.5s ease-out both;
+    --animate-page-reveal: page-reveal 1s ease-out both;
+    --animate-contact-reveal: contact-reveal 1.5s ease-out both;
+    --animate-contact-zoom: about-zoom 1.7s ease-out both;
+    --animate-goal-reveal: goal-reveal 900ms ease-out both;
+    --animate-goal-card-reveal: goal-card-reveal 1.6s ease-out both;
+    --animate-global-copy-reveal: global-copy-reveal 1.5s ease-in-out both;
+    --animate-global-map-reveal: global-map-reveal 1.5s ease-in-out both;
+    --animate-team-copy-reveal: team-copy-reveal 1.5s ease-in-out both;
+    --animate-team-image-pop: team-image-pop 1.5s ease-in-out both;
+    --animate-service-reveal-right: service-reveal-right 1.5s ease-out both;
+    --animate-service-reveal-left: service-reveal-left 1.8s ease-out both;
+    --animate-service-zoom: service-zoom 1.5s ease-out both;
+
+    @keyframes intro-reveal {
+        from {
+            opacity: 0;
+            transform: translateX(-72px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes about-zoom {
+        from {
+            opacity: 0;
+            transform: scale(0.72);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes about-hero {
+        from {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes page-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(64px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes contact-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(36px) scale(0.96);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes goal-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(52px) scale(0.98);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes goal-card-reveal {
+        from {
+            opacity: 0;
+            transform: scale(0.65);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes global-copy-reveal {
+        from {
+            opacity: 0;
+            transform: translateY(28px) scale(0.94);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes global-map-reveal {
+        from {
+            opacity: 0;
+            transform: scale(1.2);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes team-copy-reveal {
+        from {
+            opacity: 0;
+            transform: translateX(-100px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes team-image-pop {
+        from {
+            opacity: 0;
+            transform: scale(0.6);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes service-reveal-right {
+        from {
+            opacity: 0;
+            transform: translateX(-64px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes service-reveal-left {
+        from {
+            opacity: 0;
+            transform: translateX(64px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes service-zoom {
+        from {
+            opacity: 0;
+            transform: scale(0.65);
+        }
+
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+
+/* =========================================
+   SCROLL ANIMATION SUPPORT
+   ========================================= */
+
+@supports (animation-timeline: view()) {
+    [class*="animation-timeline:view()"] {
+        animation-timeline: view(block);
+        --scroll-reveal-range: entry 0% cover 35%;
+        animation-range: var(--scroll-reveal-range);
+    }
+}
+
+@supports not (animation-timeline: view()) {
+    [class*="animation-timeline:view()"] {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/* =========================================
+   DESKTOP NAVIGATION
+   ========================================= */
+
+.service-nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 20px 0;
+    color: #008ed4;
+    text-decoration: none;
+    transition: color 220ms ease;
+}
+
+.service-nav-link::after {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: #008ed4;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 260ms ease;
+}
+
+.service-nav-link:hover::after,
+.service-nav-link:focus-visible::after,
+.service-nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.service-nav-link:hover,
+.service-nav-link:focus-visible,
+.service-nav-link.active {
+    color: #008ed4;
+}
+
+
+/* =========================================
+   INTRODUCTION
+   ========================================= */
+
+.introduction-section {
+    position: relative;
+    z-index: 1;
+    min-height: 760px;
+    overflow: clip;
+    background: #f2f8fd;
+}
+
+.introduction-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    min-height: inherit;
+    align-items: center;
+    width: min(100% - 48px, 1468px);
+    margin-inline: auto;
+}
+
+.introduction-copy {
+    width: 58%;
+}
+
+.introduction-copy h2 {
+    margin: 0 0 18px;
+    color: #171717;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.introduction-copy p {
+    max-width: 810px;
+    margin: 0;
+    color: #969696;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.introduction-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: #c9edff;
+}
+
+.introduction-circle-top {
+    top: -180px;
+    left: 37%;
+    width: 355px;
+    height: 355px;
+}
+
+.introduction-circle-bottom {
+    bottom: -190px;
+    left: -185px;
+    width: 510px;
+    height: 510px;
+}
+
+.introduction-illustration {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: min(48vw, 790px);
+    height: auto;
+    transform: translateY(-50%);
+}
+
+
+/* =========================================
+   SERVICE MESSAGE
+   ========================================= */
+
+.service-message-section {
+    position: relative;
+    display: grid;
+    min-height: 570px;
+    place-items: center;
+    overflow: clip;
+    padding: 48px 24px;
+    background-image:
+        linear-gradient(
+            rgb(0 23 43 / 48%),
+            rgb(0 23 43 / 48%)
+        ),
+        url("https://worthservicesmm.com/cargo-ship-sea.png");
+    background-position: center, center bottom;
+    background-size: cover;
+    background-attachment: scroll, fixed;
+}
+
+.service-message-section h2 {
+    position: relative;
+    max-width: 850px;
+    margin: 0;
+    color: #fff;
+    font-size: clamp(1.75rem, 3.4vw, 2.7rem);
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   ABOUT SECTION
+   ========================================= */
+
+.about-section {
+    position: relative;
+    min-height: 515px;
+    overflow: clip;
+    background: #fff;
+}
+
+.about-section::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 290px;
+    height: 145px;
+    background: #f5f7ff;
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        46% 100%,
+        0 100%
+    );
+    content: "";
+}
+
+.about-decoration-rings {
+    position: absolute;
+    bottom: -625px;
+    left: 21%;
+    width: 740px;
+    height: 740px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        transparent 0 45%,
+        #d4edff 45.1% 45.25%,
+        transparent 45.35% 60%,
+        #d4edff 60.1% 60.25%,
+        transparent 60.35% 78%,
+        #d4edff 78.1% 78.25%,
+        transparent 78.35%
+    );
+}
+
+.about-content {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns:
+        minmax(260px, 1fr)
+        minmax(180px, 0.67fr)
+        minmax(340px, 1.25fr);
+    align-items: center;
+    gap: 14px;
+    width: min(calc(100% - 48px), 985px);
+    min-height: inherit;
+    margin-inline: auto;
+    padding-block: 76px;
+}
+
+.about-copy h2 {
+    margin: 0 0 14px;
+    color: #171717;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+
+.about-copy p {
+    margin: 0;
+    color: #929292;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.55;
+    text-align: justify;
+}
+
+.about-read-more {
+    display: inline-flex;
+    min-width: 130px;
+    min-height: 34px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    border-radius: 5px;
+    background: #0798d5;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 160ms ease;
+}
+
+.about-read-more:hover {
+    background: #087db2;
+}
+
+.about-small-images {
+    display: grid;
+    gap: 12px;
+}
+
+.about-small-images img,
+.about-main-image {
+    display: block;
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.about-small-images img {
+    height: 112px;
+}
+
+.about-main-image {
+    height: 360px;
+}
+
+
+/* =========================================
+   ABOUT PAGE HERO
+   ========================================= */
+
+.about-page-hero {
+    position: relative;
+    display: grid;
+    min-height: 590px;
+    overflow: clip;
+    place-items: center;
+    background: #0d3140;
+}
+
+.about-page-hero-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-page-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 38%);
+}
+
+.about-page-hero-copy {
+    position: relative;
+    z-index: 1;
+    width: min(calc(100% - 40px), 850px);
+    padding-block: 48px;
+    color: #fff;
+    text-align: center;
+}
+
+.about-page-hero-copy h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.about-page-hero-copy p {
+    margin: 0;
+    font-size: clamp(0.875rem, 1.2vw, 1rem);
+    font-weight: 300;
+    line-height: 1.3;
+}
+
+
+/* =========================================
+   ABOUT GOALS
+   ========================================= */
+
+.about-goals-section {
+    padding: 56px 24px 92px;
+    background: #f7fafc;
+}
+
+.about-page-section-title {
+    margin: 0;
+    color: #0798d5;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+}
+
+.about-goals-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
+    width: min(100%, 1325px);
+    margin: 36px auto 0;
+}
+
+.about-goal-card {
+    display: flex;
+    min-height: 330px;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 34px;
+    border: 2px solid;
+    border-radius: 9px;
+    text-align: center;
+}
+
+.about-goal-mission {
+    border-color: #ffb36f;
+}
+
+.about-goal-vision {
+    border-color: #71e3f7;
+}
+
+.about-goal-icon {
+    display: grid;
+    width: 84px;
+    height: 84px;
+    place-items: center;
+    margin-bottom: 18px;
+    border: 2px solid;
+    border-radius: 50%;
+}
+
+.about-goal-mission .about-goal-icon {
+    border-color: #ff973a;
+}
+
+.about-goal-vision .about-goal-icon {
+    border-color: #45d5f0;
+}
+
+.about-goal-icon img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+.about-goal-rule {
+    width: 150px;
+    height: 8px;
+    margin-bottom: 10px;
+}
+
+.about-goal-mission .about-goal-rule {
+    background: #ff973a;
+}
+
+.about-goal-vision .about-goal-rule {
+    background: #45d5f0;
+}
+
+.about-goal-card h3 {
+    margin: 0 0 9px;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.about-goal-mission h3 {
+    color: #ff973a;
+}
+
+.about-goal-vision h3 {
+    color: #23c1e1;
+}
+
+.about-goal-card p {
+    margin: 0;
+    color: #929292;
+    font-size: 15px;
+    line-height: 1.45;
+}
+
+
+/* =========================================
+   GLOBAL REACH
+   ========================================= */
+
+.about-global-section {
+    overflow: clip;
+    padding: 64px 24px 48px;
+    background: #f9fcfe;
+    text-align: center;
+}
+
+.about-global-section p {
+    max-width: 880px;
+    margin: 34px auto 18px;
+    color: #929292;
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.about-global-map {
+    display: block;
+    width: min(100%, 1280px);
+    height: auto;
+    margin-inline: auto;
+}
+
+
+/* =========================================
+   ABOUT TEAM
+   ========================================= */
+
+.about-team-section {
+    display: grid;
+    min-height: 570px;
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+    align-items: center;
+    gap: 54px;
+    width: min(calc(100% - 48px), 1325px);
+    margin-inline: auto;
+    padding-block: 70px;
+}
+
+.about-team-copy h2 {
+    margin: 0 0 22px;
+    color: #0798d5;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.about-team-copy p {
+    margin: 0;
+    color: #929292;
+    font-size: 16px;
+    line-height: 1.55;
+    text-align: justify;
+}
+
+.about-team-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+/* =========================================
+   SERVICE PAGE HERO
+   ========================================= */
+
+.service-page-hero {
+    position: relative;
+    display: flex;
+    min-height: 570px;
+    align-items: center;
+    overflow: clip;
+    background: #143c50;
+}
+
+.service-page-hero::before {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background:
+        linear-gradient(
+            110deg,
+            rgb(0 0 0 / 67%) 0 51%,
+            rgb(0 0 0 / 4%) 51.1%
+        );
+    content: "";
+}
+
+.service-page-hero-image {
+    position: absolute;
+    z-index: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.service-page-hero h1 {
+    position: relative;
+    z-index: 2;
+    width: min(calc(100% - 48px), 1325px);
+    margin: 0 auto;
+    color: #fff;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+
+/* =========================================
+   SERVICE PRESENTATION
+   ========================================= */
+
+.service-presentation {
+    position: relative;
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1.2fr)
+        minmax(0, 1fr);
+    grid-template-rows:
+        auto
+        minmax(250px, 1fr);
+    min-height: 600px;
+    background: #fff;
+}
+
+
+/* =========================================
+   HIDDEN SERVICE RADIO INPUTS
+   FIXED SO THEY DO NOT SCROLL PAGE
+   ========================================= */
+
+.service-presentation > input {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 1px;
+    height: 1px;
+
+    margin: 0;
+    padding: 0;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    clip-path: inset(50%);
+
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   SERVICE OPTIONS
+   ========================================= */
+
+.service-options {
+    display: grid;
+    grid-row: 1 / span 2;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: center;
+    gap: 24px 16px;
+    padding: 44px clamp(28px, 7vw, 120px);
+}
+
+.service-option {
+    position: relative;
+
+    display: flex;
+
+    min-height: 118px;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 12px 8px;
+
+    color: #078fc9;
+
+    cursor: pointer;
+
+    text-align: center;
+
+    transition:
+        color 180ms ease,
+        background-color 180ms ease,
+        translate 180ms ease,
+        transform 180ms ease,
+        box-shadow 180ms ease;
+}
+
+.service-option:hover {
+    translate: 0 -5px;
+
+    background: #f2f9fd;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 8px 18px
+        rgb(0 142 212 / 12%);
+
+    transform: scale(1.03);
+}
+
+.service-option img {
+    width: 64px;
+    height: 64px;
+
+    object-fit: contain;
+
+    transition:
+        transform 220ms ease,
+        filter 220ms ease;
+}
+
+.service-option:hover img,
+.service-option:focus-visible img {
+    transform: scale(1.125);
+}
+
+.service-option span {
+    font-size: 15px;
+    font-weight: 600;
+
+    transition:
+        color 180ms ease,
+        transform 180ms ease;
+}
+
+.service-option:hover span {
+    color: #f7931e;
+
+    transform: translateY(2px);
+}
+
+
+/* =========================================
+   SELECTED SERVICE = ORANGE
+   ========================================= */
+
+#service-ocean:checked ~ .service-options label[for="service-ocean"],
+#service-air:checked ~ .service-options label[for="service-air"],
+#service-clearance:checked ~ .service-options label[for="service-clearance"],
+#service-warehouse:checked ~ .service-options label[for="service-warehouse"],
+#service-project:checked ~ .service-options label[for="service-project"],
+#service-delivery:checked ~ .service-options label[for="service-delivery"],
+#service-application:checked ~ .service-options label[for="service-application"],
+#service-documentation:checked ~ .service-options label[for="service-documentation"] {
+    border-radius: 7px;
+
+    color: #f7931e;
+}
+
+.service-option:focus-visible {
+    outline: 3px solid #0798d5;
+    outline-offset: 2px;
+}
+
+
+/* =========================================
+   SERVICE PRESENTATION INTRO
+   ========================================= */
+
+.service-presentation-intro {
+    align-self: end;
+
+    min-height: 286px;
+
+    padding:
+        55px
+        clamp(32px, 7vw, 120px);
+
+    background: #078fc9;
+
+    color: #fff;
+}
+
+.service-presentation-intro span {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    margin-bottom: 20px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.service-presentation-intro span::before {
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    background: #fff;
+
+    content: "";
+}
+
+.service-presentation-intro h2 {
+    margin: 0 0 20px;
+
+    font-size:
+        clamp(
+            1.6rem,
+            2.6vw,
+            2.4rem
+        );
+
+    font-weight: 800;
+
+    line-height: 1.15;
+}
+
+.service-presentation-intro p {
+    max-width: 490px;
+
+    margin: 0;
+
+    font-size: 16px;
+
+    font-weight: 500;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================
+   SERVICE DETAILS
+   ========================================= */
+
+.service-details {
+    min-height: 265px;
+
+    padding:
+        54px
+        clamp(32px, 7vw, 120px);
+}
+
+.service-detail {
+    display: none;
+
+    animation:
+        page-reveal
+        500ms
+        ease-out
+        both;
+}
+
+#service-ocean:checked ~ .service-details .service-detail-ocean,
+#service-air:checked ~ .service-details .service-detail-air,
+#service-clearance:checked ~ .service-details .service-detail-clearance,
+#service-warehouse:checked ~ .service-details .service-detail-warehouse,
+#service-project:checked ~ .service-details .service-detail-project,
+#service-delivery:checked ~ .service-details .service-detail-delivery,
+#service-application:checked ~ .service-details .service-detail-application,
+#service-documentation:checked ~ .service-details .service-detail-documentation {
+    display: block;
+}
+
+.service-detail h2 {
+    margin: 0 0 18px;
+
+    color: #0798d5;
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+.service-detail p {
+    max-width: 600px;
+
+    margin: 0;
+
+    color: #0798d5;
+
+    font-size: 16px;
+
+    line-height: 1.55;
+}
+
+
+/* =========================================
+   SERVICE FOCUS
+   ========================================= */
+
+.service-focus {
+    display: grid;
+
+    min-height: 550px;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    background: #078fc9;
+
+    color: #fff;
+}
+
+.service-focus-copy {
+    align-self: center;
+
+    width: min(100%, 660px);
+
+    justify-self: end;
+
+    padding:
+        64px
+        clamp(32px, 7vw, 120px);
+}
+
+.service-focus-copy h2,
+.service-compliance-copy h2 {
+    margin: 0 0 20px;
+
+    font-size: 28px;
+
+    font-weight: 800;
+}
+
+.service-focus-copy p,
+.service-compliance-copy p {
+    margin: 0;
+
+    font-size: 16px;
+
+    line-height: 1.55;
+}
+
+.service-focus-image {
+    width: 100%;
+
+    height: 100%;
+
+    min-height: inherit;
+
+    object-fit: cover;
+}
+
+
+/* =========================================
+   SERVICE COMPLIANCE
+   ========================================= */
+
+.service-compliance {
+    position: relative;
+
+    display: grid;
+
+    min-height: 550px;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    align-items: center;
+
+    overflow: clip;
+
+    background: #fff;
+}
+
+.service-compliance-crystal {
+    position: absolute;
+
+    z-index: 0;
+
+    pointer-events: none;
+}
+
+.service-compliance-crystal-large {
+    top: 0;
+
+    left: 0;
+
+    width: 52%;
+
+    height: 100%;
+}
+
+.service-compliance-crystal-top {
+    top: 0;
+
+    right: 0;
+
+    width: 224px;
+
+    height: 136px;
+}
+
+.service-compliance-crystal-bottom {
+    right: 12%;
+
+    bottom: 0;
+
+    width: 173px;
+
+    height: 81px;
+}
+
+.service-compliance [class*="animation-timeline:view()"] {
+    --scroll-reveal-range:
+        entry 0%
+        cover 60%;
+}
+
+.service-compliance-copy {
+    position: relative;
+
+    z-index: 1;
+
+    grid-column: 2;
+
+    max-width: 720px;
+
+    padding: 72px 40px;
+}
+
+.service-compliance-copy h2 {
+    color: #0798d5;
+}
+
+.service-compliance-copy p {
+    color: #929292;
+}
+
+
+/* =========================================
+   PROJECTS
+   ========================================= */
+
+.projects-page {
+    width:
+        min(
+            calc(100% - 48px),
+            1325px
+        );
+
+    margin-inline: auto;
+
+    padding-block:
+        64px
+        82px;
+}
+
+.projects-page h1 {
+    margin: 0 0 30px;
+
+    color: #0798d5;
+
+    font-size: 28px;
+
+    font-weight: 700;
+}
+
+.projects-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            3,
+            minmax(0, 1fr)
+        );
+
+    gap: 14px;
+}
+
+.project-image-frame {
+    position: relative;
+
+    overflow: hidden;
+
+    aspect-ratio: 1.42;
+
+    background: #e8edf1;
+}
+
+.project-image-frame a {
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    cursor: zoom-in;
+}
+
+.project-image-frame img {
+    display: block;
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform 700ms ease;
+}
+
+.project-image-frame:hover img,
+.project-image-frame:focus-within img {
+    transform: scale(1.07);
+}
+
+
+/* =========================================
+   CONTACT
+   ========================================= */
+
+.contact-page {
+    width:
+        min(
+            calc(100% - 48px),
+            1325px
+        );
+
+    margin-inline: auto;
+
+    padding-block:
+        58px
+        82px;
+}
+
+.contact-intro {
+    margin-bottom: 52px;
+
+    text-align: center;
+}
+
+.contact-intro h1 {
+    margin: 0 0 24px;
+
+    color: #0798d5;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    animation-delay: 50ms;
+}
+
+.contact-intro p {
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    color: #929292;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    animation-duration: 1.7s;
+
+    animation-delay: 150ms;
+}
+
+.contact-map-title {
+    margin: 0;
+
+    padding: 18px 20px;
+
+    background: #078fc9;
+
+    color: #fff;
+
+    font-size: 20px;
+
+    font-weight: 600;
+
+    text-align: center;
+
+    animation-duration: 1.6s;
+
+    animation-delay: 150ms;
+}
+
+.contact-map-image {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    transition:
+        filter 350ms ease;
+
+    animation-duration: 1.8s;
+
+    animation-delay: 200ms;
+}
+
+.contact-map-image:hover {
+    filter: saturate(1.1);
+}
+
+.contact-building {
+    display: block;
+
+    width: 100%;
+
+    height:
+        clamp(
+            240px,
+            35vw,
+            470px
+        );
+
+    margin-top: 64px;
+
+    border-radius: 8px;
+
+    object-fit: cover;
+
+    animation-delay: 150ms;
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+
+    .about-content {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1.2fr);
+    }
+
+    .about-team-section {
+        gap: 28px;
+    }
+
+    .about-copy {
+        grid-column: 1 / -1;
+    }
+
+    .about-main-image {
+        height:
+            min(
+                40vw,
+                360px
+            );
+    }
+
+    .service-options {
+        padding-inline: 28px;
+    }
+
+    .service-presentation-intro,
+    .service-details {
+        padding-inline: 36px;
+    }
+
+    .service-focus-copy {
+        padding-inline: 36px;
+    }
+
+    .projects-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 767px) {
+
+    .about-goals-section {
+        padding:
+            48px
+            16px
+            64px;
+    }
+
+    .about-goals-grid {
+        grid-template-columns:
+            minmax(0, 1fr);
+
+        gap: 16px;
+
+        margin-top: 28px;
+    }
+
+    .about-goal-card {
+        min-height: 280px;
+
+        padding:
+            24px
+            20px;
+    }
+
+    .about-global-section {
+        padding:
+            52px
+            16px
+            32px;
+    }
+
+    .about-global-section p {
+        margin-block:
+            22px
+            16px;
+    }
+
+    .about-team-section {
+        min-height: auto;
+
+        grid-template-columns:
+            minmax(0, 1fr);
+
+        gap: 28px;
+
+        width:
+            min(
+                calc(100% - 32px),
+                520px
+            );
+
+        padding-block: 48px;
+    }
+
+    .about-team-copy h2 {
+        font-size: 25px;
+    }
+
+    .about-team-copy p {
+        font-size: 15px;
+    }
+
+    .about-page-hero {
+        min-height: 440px;
+    }
+
+    .about-page-hero-copy {
+        width:
+            min(
+                calc(100% - 32px),
+                600px
+            );
+    }
+
+    .about-page-hero-copy p {
+        line-height: 1.5;
+    }
+
+    .service-message-section {
+        min-height: 420px;
+
+        background-attachment:
+            scroll,
+            scroll;
+    }
+
+    .service-page-hero {
+        min-height: 440px;
+    }
+
+    .service-page-hero::before {
+        background:
+            linear-gradient(
+                90deg,
+                rgb(0 0 0 / 60%),
+                rgb(0 0 0 / 24%)
+            );
+    }
+
+
+    /* =====================================
+       MOBILE SERVICE ORDER
+
+       Service Offered
+       ↓
+       Selected Service
+       ↓
+       Service Icons
+       ===================================== */
+
+    .service-presentation {
+        display: flex;
+
+        min-height: 0;
+
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .service-presentation-intro {
+        order: 1;
+    }
+
+    .service-details {
+        order: 2;
+    }
+
+    .service-options {
+        order: 3;
+    }
+
+
+    /* =====================================
+       SERVICE OPTIONS
+       ===================================== */
+
+    .service-options {
+        grid-row: auto;
+
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        gap: 10px;
+
+        width: 100%;
+
+        padding:
+            28px
+            16px;
+
+        box-sizing: border-box;
+    }
+
+    .service-option {
+        min-height: 110px;
+    }
+
+
+    /* =====================================
+       SERVICE INTRO
+       ===================================== */
+
+    .service-presentation-intro {
+        min-height: auto;
+
+        width: 100%;
+
+        padding:
+            36px
+            24px;
+
+        box-sizing: border-box;
+    }
+
+
+    /* =====================================
+       SERVICE DETAILS
+       ===================================== */
+
+    .service-details {
+        min-height: 220px;
+
+        width: 100%;
+
+        padding:
+            36px
+            24px;
+
+        box-sizing: border-box;
+    }
+
+    .service-detail h2 {
+        font-size: 25px;
+    }
+
+    .service-detail p {
+        font-size: 15px;
+
+        line-height: 1.55;
+    }
+
+
+    /* =====================================
+       SERVICE FOCUS
+       ===================================== */
+
+    .service-focus {
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+
+    .service-focus-copy {
+        width: 100%;
+
+        padding:
+            44px
+            24px;
+    }
+
+    .service-focus-image {
+        min-height: 280px;
+
+        max-height: 380px;
+    }
+
+
+    /* =====================================
+       SERVICE COMPLIANCE
+       ===================================== */
+
+    .service-compliance {
+        min-height: 420px;
+
+        grid-template-columns:
+            minmax(0, 1fr);
+    }
+
+    .service-compliance-crystal-large {
+        width: 70%;
+
+        opacity: 0.6;
+    }
+
+    .service-compliance-crystal-top {
+        width: 140px;
+
+        height: 85px;
+    }
+
+    .service-compliance-crystal-bottom {
+        right: 5%;
+
+        width: 130px;
+
+        height: auto;
+    }
+
+    .service-compliance-copy {
+        grid-column: 1;
+
+        padding:
+            56px
+            24px;
+    }
+
+
+    /* =====================================
+       PROJECTS
+       ===================================== */
+
+    .projects-page {
+        width:
+            min(
+                calc(100% - 32px),
+                520px
+            );
+
+        padding-block:
+            44px
+            58px;
+    }
+
+    .projects-grid {
+        gap: 10px;
+    }
+
+
+    /* =====================================
+       CONTACT
+       ===================================== */
+
+    .contact-page {
+        width:
+            min(
+                calc(100% - 32px),
+                600px
+            );
+
+        padding-block:
+            44px
+            58px;
+    }
+
+    .contact-intro {
+        margin-bottom: 36px;
+    }
+
+    .contact-map-title {
+        padding:
+            15px
+            12px;
+
+        font-size: 17px;
+    }
+
+    .contact-building {
+        margin-top: 36px;
+    }
+
+
+    /* =====================================
+       ABOUT SECTION
+       ===================================== */
+
+    .about-section {
+        min-height: auto;
+    }
+
+    .about-content {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1.2fr);
+
+        width:
+            min(
+                calc(100% - 32px),
+                520px
+            );
+
+        gap: 12px;
+
+        padding-block: 48px;
+    }
+
+    .about-copy {
+        grid-column: 1 / -1;
+    }
+
+    .about-small-images {
+        gap: 8px;
+    }
+
+    .about-small-images img {
+        height: 84px;
+    }
+
+    .about-main-image {
+        height: 268px;
+    }
+
+    .about-decoration-rings {
+        left: -80px;
+    }
+
+
+    /* =====================================
+       INTRODUCTION
+       ===================================== */
+
+    .introduction-section {
+        min-height: 720px;
+    }
+
+    .introduction-content {
+        align-items: flex-start;
+
+        padding-top: 96px;
+    }
+
+    .introduction-copy {
+        width: 100%;
+    }
+
+    .introduction-copy h2 {
+        font-size: 30px;
+    }
+
+    .introduction-copy p {
+        font-size: 16px;
+    }
+
+    .introduction-illustration {
+        top: auto;
+
+        right: -80px;
+
+        bottom: -70px;
+
+        width: 90vw;
+
+        transform: none;
+
+        opacity: 0.45;
+    }
+}
+
+
+/* =========================================
+   REDUCED MOTION
+   ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .about-page-hero-image,
+    .service-page-hero-image,
+    .service-option,
+    .service-detail,
+    .project-image-frame img,
+    .contact-map-image {
+        animation: none;
+
+        transition: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE CONTROL CENTER MENU
+   ========================================================= */
+
+.mobile-control-center {
+    position: relative;
+}
+
+
+/* =========================================
+   HAMBURGER BUTTON
+   ========================================= */
+
+.mobile-menu-button {
+    position: relative;
+
+    z-index: 10001;
+
+    display: flex;
+
+    width: 44px;
+
+    height: 44px;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 9999px;
+
+    background: #f8fafc;
+
+    color: #008ed4;
+
+    cursor: pointer;
+
+    transition:
+        background-color 250ms ease,
+        transform 250ms ease;
+}
+
+.mobile-menu-button:hover {
+    background: #e0f2fe;
+}
+
+
+/* =========================================
+   HAMBURGER LINES
+   ========================================= */
+
+.menu-line {
+    display: block;
+
+    transform-box: fill-box;
+
+    transform-origin: center;
+
+    transition:
+        transform 250ms ease,
+        opacity 200ms ease;
+}
+
+
+/* =========================================
+   HAMBURGER → X
+   ========================================= */
+
+.mobile-control-center[open]
+.menu-line-top {
+    transform:
+        translateY(5px)
+        rotate(45deg);
+}
+
+.mobile-control-center[open]
+.menu-line-middle {
+    opacity: 0;
+}
+
+.mobile-control-center[open]
+.menu-line-bottom {
+    transform:
+        translateY(-5px)
+        rotate(-45deg);
+}
+
+
+/* =========================================
+   MENU CLOSED
+   ========================================= */
+
+.mobile-menu-panel {
+    display: none;
+}
+
+
+/* =========================================
+   MENU OPEN
+   ========================================= */
+
+.mobile-control-center[open]
+.mobile-menu-panel {
+    display: block;
+}
+
+
+/* =========================================
+   MOBILE CONTROL CENTER
+   ========================================= */
+
+@media (max-width: 767px) {
+
+    .mobile-control-center {
+        position: static !important;
+    }
+
+
+    /* =====================================
+       CONTROL CENTER PANEL
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-panel {
+
+        position: fixed !important;
+
+        top: 88px !important;
+
+        right: 0 !important;
+
+        left: 0 !important;
+
+        width: 100vw !important;
+
+        height: 420px !important;
+
+        max-height:
+            calc(100vh - 88px) !important;
+
+        min-height: 0 !important;
+
+        margin: 0 !important;
+
+        padding: 0 !important;
+
+        border: 0 !important;
+
+        border-radius: 0 !important;
+
+        background: #eaf6fc !important;
+
+        box-shadow:
+            0 12px 30px
+            rgb(0 80 120 / 10%) !important;
+
+        overflow: hidden !important;
+
+        z-index: 9999 !important;
+
+        transform-origin: top center !important;
+    }
+
+
+    /* =====================================
+       OPEN ANIMATION
+       ===================================== */
+
+    .mobile-control-center[open]
+    .mobile-menu-panel {
+
+        animation:
+            mobile-control-center-drop
+            420ms
+            cubic-bezier(
+                0.22,
+                1,
+                0.36,
+                1
+            )
+            both !important;
+    }
+
+
+    /* =====================================
+       INNER CONTAINER
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-panel > div {
+
+        display: flex !important;
+
+        height: 100% !important;
+
+        min-height: 0 !important;
+
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+
+        padding:
+            28px
+            32px
+            24px !important;
+
+        box-sizing: border-box !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /* =====================================
+       NAVIGATION LINKS
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-link {
+
+        display: flex !important;
+
+        width: max-content !important;
+
+        min-height: 44px !important;
+
+        align-items: center !important;
+
+        justify-content: flex-start !important;
+
+        margin:
+            0
+            0
+            12px !important;
+
+        padding:
+            6px
+            0
+            10px !important;
+
+        color: #168bc3 !important;
+
+        font-size: 17px !important;
+
+        font-weight: 500 !important;
+
+        line-height: 1.2 !important;
+
+        text-decoration: none !important;
+
+        background: transparent !important;
+
+        border: 0 !important;
+
+        cursor: pointer !important;
+
+        position: relative !important;
+
+        opacity: 0;
+
+        transform:
+            translateY(-15px);
+
+        animation:
+            mobile-menu-link-drop
+            420ms
+            ease-out
+            forwards;
+    }
+
+
+    /* =====================================
+       LINK HOVER
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-link:hover {
+
+        color: #056b9a !important;
+
+        text-decoration: none !important;
+
+        transform:
+            translateX(4px);
+    }
+
+
+    /* =====================================
+       ACTIVE BLUE UNDERLINE
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-link.active::after {
+
+        display: block !important;
+
+        position: absolute !important;
+
+        left: 0 !important;
+
+        bottom: 0 !important;
+
+        width: 46px !important;
+
+        height: 4px !important;
+
+        background: #008ed4 !important;
+
+        content: "" !important;
+
+        transform: none !important;
+    }
+
+
+    /* =====================================
+       STAGGER ANIMATION
+       ===================================== */
+
+    .mobile-control-center[open]
+    .mobile-menu-link:nth-child(1) {
+        animation-delay: 70ms;
+    }
+
+    .mobile-control-center[open]
+    .mobile-menu-link:nth-child(2) {
+        animation-delay: 120ms;
+    }
+
+    .mobile-control-center[open]
+    .mobile-menu-link:nth-child(3) {
+        animation-delay: 170ms;
+    }
+
+    .mobile-control-center[open]
+    .mobile-menu-link:nth-child(4) {
+        animation-delay: 220ms;
+    }
+
+    .mobile-control-center[open]
+    .mobile-menu-link:nth-child(5) {
+        animation-delay: 270ms;
+    }
+
+
+    /* =====================================
+       SOCIAL SECTION
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-social {
+
+        display: flex !important;
+
+        width: 100% !important;
+
+        align-items: center !important;
+
+        gap: 28px !important;
+
+        margin-top: auto !important;
+
+        padding-top: 18px !important;
+
+        border-top:
+            1px solid
+            rgb(14 165 233 / 15%) !important;
+    }
+
+
+    /* =====================================
+       SOCIAL ICONS
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-social a {
+
+        display: flex !important;
+
+        width: 30px !important;
+
+        height: 30px !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        color: #168bc3 !important;
+
+        cursor: pointer !important;
+
+        text-decoration: none !important;
+
+        transition:
+            color 180ms ease,
+            transform 180ms ease;
+    }
+
+    .mobile-control-center
+    .mobile-menu-social a:hover {
+
+        color: #056b9a !important;
+
+        transform:
+            translateY(-2px);
+    }
+
+
+    /* =====================================
+       SOCIAL SVG
+       ===================================== */
+
+    .mobile-control-center
+    .mobile-menu-social svg {
+
+        width: 28px !important;
+
+        height: 28px !important;
+    }
+}
+
+
+/* =========================================
+   CONTROL CENTER DROP ANIMATION
+   ========================================= */
+
+@keyframes mobile-control-center-drop {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-35px)
+            scaleY(0.96);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scaleY(1);
+    }
+}
+
+
+/* =========================================
+   MENU LINK ANIMATION
+   ========================================= */
+
+@keyframes mobile-menu-link-drop {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(-15px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================
+   SMALL PHONES
+   ========================================= */
+
+@media (max-width: 380px) {
+
+    .mobile-control-center
+    .mobile-menu-panel > div {
+
+        padding-left: 24px !important;
+
+        padding-right: 24px !important;
+    }
+
+    .mobile-control-center
+    .mobile-menu-link {
+
+        font-size: 16px !important;
+
+        margin-bottom: 10px !important;
+    }
+}
+
+
+/* =========================================
+   STOP PAGE SCROLL WHEN MENU IS OPEN
+   ========================================= */
+
+@media (max-width: 767px) {
+
+    body:has(
+        .mobile-control-center[open]
+    ) {
+        overflow: hidden !important;
+    }
+
+}
+
+
+
+/* =========================================
+   REAL MOBILE SERVICE OFFERED FIT
+   ========================================= */
+
+@media (max-width: 767px) {
+
+    .service-presentation {
+        display: flex !important;
+        flex-direction: column !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+
+    /* =====================================
+       SERVICE INTRO
+       ===================================== */
+
+    .service-presentation-intro {
+        order: 1 !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+
+        padding:
+            36px
+            24px !important;
+
+        box-sizing: border-box !important;
+
+        overflow-wrap: break-word !important;
+    }
+
+
+    /* =====================================
+       SELECTED SERVICE DETAILS
+       ===================================== */
+
+    .service-details {
+        order: 2 !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        margin: 0 !important;
+
+        padding:
+            36px
+            24px !important;
+
+        box-sizing: border-box !important;
+
+        overflow-wrap: break-word !important;
+    }
+
+
+    /* =====================================
+       SERVICE ICONS
+       ===================================== */
+
+    .service-options {
+        order: 3 !important;
+
+        display: grid !important;
+
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap:
+            18px
+            10px !important;
+
+        margin: 0 !important;
+
+        padding:
+            28px
+            20px !important;
+
+        box-sizing: border-box !important;
+
+        overflow: hidden !important;
+    }
+
+
+    /* =====================================
+       ICON ITEMS
+       ===================================== */
+
+    .service-option {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        min-height: 105px !important;
+
+        padding:
+            8px
+            4px !important;
+
+        box-sizing: border-box !important;
+
+        overflow: hidden !important;
+    }
+
+    .service-option img {
+        width: 58px !important;
+        height: 58px !important;
+
+        max-width: 100% !important;
+    }
+
+    .service-option span {
+        max-width: 100% !important;
+
+        font-size: 14px !important;
+
+        line-height: 1.25 !important;
+
+        overflow-wrap: break-word !important;
+    }
+}
+
+
+/* =========================================
+   VERY SMALL PHONES
+   ========================================= */
+
+@media (max-width: 380px) {
+
+    .service-presentation-intro {
+        padding:
+            30px
+            16px !important;
+    }
+
+    .service-details {
+        padding:
+            30px
+            16px !important;
+    }
+
+    .service-options {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+
+        gap:
+            14px
+            6px !important;
+
+        padding:
+            24px
+            10px !important;
+    }
+
+    .service-option {
+        min-height: 95px !important;
+
+        padding:
+            6px
+            2px !important;
+    }
+
+    .service-option img {
+        width: 48px !important;
+        height: 48px !important;
+    }
+
+    .service-option span {
+        font-size: 12px !important;
+    }
+}
+/* =========================================
+   HIDE DESKTOP SERVICE NAVIGATION ON MOBILE
+   ========================================= */
+
+@media (max-width: 767px) {
+    .our-service-page .service-page-navigation {
+        display: none !important;
+    }
+}
