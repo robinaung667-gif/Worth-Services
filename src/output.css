@@ -1637,18 +1637,18 @@
   }
   .mobile-control-center .mobile-menu-panel {
     position: fixed !important;
-    top: 88px !important;
+    top: 80px !important;
     right: 0 !important;
     left: 0 !important;
     width: 100vw !important;
     height: 420px !important;
-    max-height: calc(100vh - 88px) !important;
+    max-height: calc(100vh - 81px) !important;
     min-height: 0 !important;
     margin: 0 !important;
     padding: 0 !important;
     border: 0 !important;
     border-radius: 0 !important;
-    background: #eaf6fc !important;
+    background: #ffffff !important;
     box-shadow: 0 12px 30px rgb(0 80 120 / 10%) !important;
     overflow: hidden !important;
     z-index: 9999 !important;
@@ -1871,10 +1871,7 @@
   }
 }
 @media (max-width: 767px) {
-  .our-service-page .service-page-navigation {
-    display: none !important;
-  }
-  .service-page-navigation {
+  nav.service-page-navigation {
     display: none !important;
   }
 }
