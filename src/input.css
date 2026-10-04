@@ -2562,3 +2562,10 @@
         display: none !important;
     }
 }
+
+/* Hide desktop navigation on mobile screens */
+@media (max-width: 767px) {
+    .service-page-navigation {
+        display: none !important;
+    }
+}
