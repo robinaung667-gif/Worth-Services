@@ -2566,3 +2566,19 @@
     }
 
 }
+
+/* =========================================
+   HERO TEXT RESPONSIVE LINE BREAK
+   ========================================= */
+
+.hero-desktop-break {
+    display: block;
+}
+
+@media (max-width: 767px) {
+
+    .hero-desktop-break {
+        display: none;
+    }
+
+}
